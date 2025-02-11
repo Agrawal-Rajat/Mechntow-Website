@@ -538,7 +538,7 @@ strong {
 -----------------------------------------*/
 .con_cards {
   width: 100%;
-  height: 125vh;
+  height: 100vh;
   background: linear-gradient(90deg, rgba(253, 187, 45, 0.7) 0%, rgba(34, 193, 195, 0.7) 100%),  url("/mechntow_background.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -588,6 +588,9 @@ strong {
 }
 
 @media screen and (max-width: 480px) {
+  .con_cards{
+    height: 160vh;
+  }
   .container_cards {
     flex-direction: column; /* Stack items vertically */
     gap: 30px; /* Adjust gap for smaller screens */
