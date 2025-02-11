@@ -595,6 +595,7 @@ strong {
   .container_cards {
     flex-direction: column; /* Stack items vertically */
     gap: 30px; /* Adjust gap for smaller screens */
+    overflow: hidden;
   }
 
   .container_cards img {
