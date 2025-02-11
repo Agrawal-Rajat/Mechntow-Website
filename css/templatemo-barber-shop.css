@@ -538,7 +538,7 @@ strong {
 -----------------------------------------*/
 .con_cards {
   width: 100%;
-  height: 100vh;
+  height: 125vh;
   background: linear-gradient(90deg, rgba(253, 187, 45, 0.7) 0%, rgba(34, 193, 195, 0.7) 100%),  url("/mechntow_background.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
