@@ -589,7 +589,8 @@ strong {
 
 @media screen and (max-width: 480px) {
   .con_cards{
-    height: 160vh;
+    height: 93rem;
+    width: 100%;
   }
   .container_cards {
     flex-direction: column; /* Stack items vertically */
@@ -598,7 +599,7 @@ strong {
 
   .container_cards img {
     margin-top: 10px;
-    width: 45%; /* Larger width for small screens */
+    width: 55%; /* Larger width for small screens */
   }
 }
 
