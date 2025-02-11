@@ -47,6 +47,7 @@ https://templatemo.com/tm-585-barber-shop
 body {
   background-color: var(--white-color);
   font-family: var(--body-font-family); 
+  overflow-x: hidden;
 }
 
 
@@ -575,32 +576,33 @@ strong {
 }
 
 /* Media Queries for Mobile Devices */
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .container_cards {
-    flex-wrap: wrap; /* Ensure items wrap properly */
-    gap: 15px; /* Adjust gap for smaller screens */
+    flex-wrap: wrap; 
+    gap: 15px; 
   }
 
   .container_cards img {
-    width: 45%; /* Adjust width for better visibility */
-    height: auto; /* Maintain aspect ratio */
+    width: 45%; 
+    height: auto; 
   }
-}
+} */
 
 @media screen and (max-width: 480px) {
   .con_cards{
-    height: 93rem;
-    width: 100%;
+    max-height: 100vh;
+    max-width: 100%;
+    display: flex;
   }
   .container_cards {
-    flex-direction: column; /* Stack items vertically */
-    gap: 30px; /* Adjust gap for smaller screens */
-    overflow: hidden;
+    flex-direction: row;
+    gap: 20px;
   }
 
   .container_cards img {
-    margin-top: 10px;
-    width: 55%; /* Larger width for small screens */
+    object-fit: cover;
+    width: 40%; /* Larger width for small screens */
+  
   }
 }
 
