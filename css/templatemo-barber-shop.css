@@ -600,8 +600,7 @@ strong {
   }
 
   .container_cards img {
-    object-fit: cover;
-    width: 40%; /* Larger width for small screens */
+    width: 43%; /* Larger width for small screens */
   
   }
 }
