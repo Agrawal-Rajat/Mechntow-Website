@@ -576,7 +576,7 @@ strong {
 }
 
 /* Media Queries for Mobile Devices */
-/* @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .container_cards {
     flex-wrap: wrap; 
     gap: 15px; 
@@ -586,24 +586,31 @@ strong {
     width: 45%; 
     height: auto; 
   }
-} */
+}
 
 @media screen and (max-width: 480px) {
-  .con_cards{
-    max-height: 100vh;
-    max-width: 100%;
+  .con_cards {
+    height: 100vh;
+    width: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
   .container_cards {
-    flex-direction: row;
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
   }
 
   .container_cards img {
-    width: 43%; /* Larger width for small screens */
-  
+    width: 30%;
+    opacity: 1; /* Ensure visibility */
+    transform: perspective(800px) rotateY(0deg); /* Remove hover effect issues */
   }
 }
+
 
 
 /*---------------------------------------
