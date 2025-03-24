@@ -1,0 +1,40 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+debug.log
+error.log
+out.log
+
+# Google credentials (Ensure this is not committed)
+key.json
+
+# Uploaded files
+uploads/
+*.bak
+*.swp
+.DS_Store
+
+# IDE-specific files
+.vscode/
+.idea/
+*.iml
+
+# Build files
+dist/
+out/
+build/
