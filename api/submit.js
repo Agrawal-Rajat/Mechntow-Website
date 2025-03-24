@@ -3,10 +3,16 @@ const formidable = require('formidable');
 const fs = require('fs');
 const path = require('path');
 
+export const config = {
+  api: {
+    bodyParser: false, // Disable Vercel's default body parser
+  },
+};
+
 // Parse credentials from GOOGLE_CREDENTIAL environment variable
 const credentials = JSON.parse(process.env.GOOGLE_CREDENTIAL);
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   const allowedOrigins = [
     'https://mechntow.com',
     'https://www.mechntow.com',
@@ -32,10 +38,15 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const form = new formidable.IncomingForm({ multiples: true, uploadDir: './uploads', keepExtensions: true });
+    const form = new formidable.IncomingForm({
+      multiples: false,
+      uploadDir: '/tmp', // Use temporary directory for Vercel compatibility
+      keepExtensions: true,
+    });
 
     form.parse(req, async (err, fields, files) => {
       if (err) {
+        console.error("Form parsing error:", err);
         return res.status(500).json({ error: 'Error parsing form data' });
       }
 
@@ -58,31 +69,36 @@ module.exports = async (req, res) => {
       let imageUrl = '';
 
       // Upload to Google Drive
-      if (carImage) {
-        const imagePath = carImage.filepath;
-        const fileMetadata = {
-          name: `car_image_${Date.now()}${path.extname(carImage.originalFilename)}`,
-          parents: ['1ZdaDr2oGjuO8UpvloTlWKbS5IVRw9WRa'], // Replace with your Drive folder ID
-        };
-        const media = {
-          mimeType: carImage.mimetype,
-          body: fs.createReadStream(imagePath),
-        };
+      if (carImage && carImage.filepath) {
+        try {
+          const imagePath = carImage.filepath || carImage.path;
+          const fileMetadata = {
+            name: `car_image_${Date.now()}${path.extname(carImage.originalFilename)}`,
+            parents: ['1ZdaDr2oGjuO8UpvloTlWKbS5IVRw9WRa'], // Replace with your Drive folder ID
+          };
+          const media = {
+            mimeType: carImage.mimetype,
+            body: fs.createReadStream(imagePath),
+          };
 
-        const file = await drive.files.create({
-          resource: fileMetadata,
-          media: media,
-          fields: 'id',
-        });
+          const file = await drive.files.create({
+            resource: fileMetadata,
+            media: media,
+            fields: 'id',
+          });
 
-        const fileId = file.data.id;
-        imageUrl = `https://drive.google.com/uc?id=${fileId}`;
+          const fileId = file.data.id;
+          imageUrl = `https://drive.google.com/uc?id=${fileId}`;
 
-        // Make the file publicly accessible
-        await drive.permissions.create({
-          fileId,
-          requestBody: { role: 'reader', type: 'anyone' },
-        });
+          // Make the file publicly accessible
+          await drive.permissions.create({
+            fileId,
+            requestBody: { role: 'reader', type: 'anyone' },
+          });
+        } catch (uploadError) {
+          console.error("Error uploading to Google Drive:", uploadError);
+          return res.status(500).json({ error: 'Error uploading image to Google Drive' });
+        }
       }
 
       // Append to Google Sheets
@@ -104,4 +120,4 @@ module.exports = async (req, res) => {
     console.error('Error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-};
+}
